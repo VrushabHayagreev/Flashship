@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Armata" rel="stylesheet"> 
+
+
+	<link rel="stylesheet" href="/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="/style.css"> <!-- Resource style -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="/modernizr.js"></script> <!-- Modernizr -->
+	<link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet"> 
+  	
+	<title>FLASHSHIP</title>
+</head>
+<nav class="nav">
+        <div class="container">
+            <div class="logo">
+                <a href="/">FLASHSHIP</a>
+            </div>
+            <div id="mainListDiv" class="main_list">
+                <ul class="navlinks">
+                  <li><a href="/">Home</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/login">Signup</a></li>
+                    <li><a href="/login">Contact</a></li>
+                </ul>
+            </div>
+            <span class="navTrigger">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </div>
+    </nav>
+<body>
+	<header class="cd-main-header">
+		<h1 class="deepshadow">WELCOME TO FLASH SHIP</h1>
+		<hr>
+	</header>
+
+	<ul class="cd-pricing">
+		<li>
+			<header class="cd-pricing-header">
+				<h2>Sign In</h2>
+			</header> <!-- .cd-pricing-header -->
+
+			<div class="cd-pricing-features" style="height: 92%;padding-left:10%;padding-right:10%;">
+				<em><img class="icons" src="/login.png"></em>
+			</div> <!-- .cd-pricing-features -->
+
+			<footer class="cd-pricing-footer">
+				<a href="#0" onclick="change_content(1);">Select</a>
+			</footer> <!-- .cd-pricing-footer -->
+		</li>
+		
+		<li>
+			<header class="cd-pricing-header">
+				<h2>Sign Up</h2>
+			</header> <!-- .cd-pricing-header -->
+
+			<div class="cd-pricing-features">
+				<em><img class="icons" src="/signup.png" style></em>
+			</div> <!-- .cd-pricing-features -->
+
+			<footer class="cd-pricing-footer">
+				<a href="/contact" onclick="change_content(2);">Select</a>
+			</footer> <!-- .cd-pricing-footer -->
+		</li>
+
+		<li>
+			<header class="cd-pricing-header">
+				<h2>Contacts</h2>
+			</header> <!-- .cd-pricing-header -->
+
+			<div class="cd-pricing-features">
+				<em><img class="icons" src="/contacts.png" style="padding-bottom:3%;padding-top: 0"></em>
+			</div> <!-- .cd-pricing-features -->
+
+			<footer class="cd-pricing-footer">
+				<a href="#" onclick="change_content(3)">Select</a>
+			</footer> <!-- .cd-pricing-footer -->
+		</li>
+	</ul> <!-- .cd-pricing -->
+
+	<div class="cd-form">
+		
+		<div class="cd-plan-info">
+			<!-- content will be loaded using jQuery - according to the selected plan -->
+		</div>
+
+		<div class="cd-more-info">
+			<h3>Need help?</h3>
+			<p>Contact the nearest FLASHSHIP for further information</p>
+		</div>
+
+		<div id="side-content">
+		</div>
+	</div> <!-- .cd-form -->
+	
+	<div class="cd-overlay"></div> <!-- shadow layer -->
+<script src="/jquery-2.1.4.js"></script>
+<script src="/velocity.min.js"></script>
+<script src="/main.js"></script> <!-- Resource jQuery -->
+<script type="text/javascript">
+	function change_content(choice){
+		if(choice==1){
+			document.getElementById("side-content").innerHTML='<form method="POST" action="/loggedin"><fieldset><legend>Enter Details</legend><p class="half-width" style="margin-top:2%;margin-left: 39%;"><label style="padding-left: 14%;">Admin Type</label><label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label><b><span class="cd-select"><select name="is_category" id="card-expiry-month" style="width:12vw;text-align: center;" class="text-style"><option class="text-style">admin</option><option class="text-style">user</option><option class="text-style">driver</option></select></span></b></p><br><div style="padding-left: 25%;padding-top: 12%;width: 80%;"><label for="userName" style="padding-left: 40%;">Email</label><input type="email" id="userName" name="email" required></div><div style="padding-left: 25%;width: 50%;width: 80%;"><label for="userEmail" style="padding-left: 40%;">Password</label><input type="password" id="userEmail" name="password" required></div></fieldset><fieldset><div><input type="submit" value="Login" style="margin-left: 45%;float:left;"></div></fieldset><fieldset><legend>Important Note</legend><label style="font-size: 25px;margin-top: 5%;color: #660066;">Do not share your login information with anyone!</label></fieldset></form><a href="#0" class="cd-close"></a>';
+
+
+		}
+		else if(choice==2){
+			document.getElementById("side-content").innerHTML='<form method="POST" action="/register"><fieldset><legend>Account Info</legend><div class="half-width"><label for="userName">First Name</label>'+
+'<input type="text" id="userName" name="fname" required></div><div class="half-width"><label for="userEmail">Last Name</label><input type="text" id="userEmail" name="lname" required></div><p class="half-width">'+
+'<label>&emsp;&emsp;Gender&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Blood '+'Group&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label><b><span class="cd-select"><select name="gen" id="card-expiry-month" class="text-style"><option class="text-style">Male</option><option class="text-style">Female</option><option>Others</option></select></span><label>&emsp;&emsp;&emsp;&emsp;&emsp;</label>'+
+'<span class="cd-select"><select name="bgo" id="card-expiry-month" class="text-style"><option class="text-style">A+</option><option class="text-style">A-</option><option class="text-style">B+</option><option class="text-style">B-</option><option class="text-style">O+</option><option class="text-style">O-</option><option class="text-style">AB+</option><option class="text-style">AB-</option></select></span></b></p><p class="half-width"><label for="userPassword">Date</label><input type="date" id="userPassword" name="dob" class="text-style" placeholder="YYYY-MM-DD"></div><div><label for="userPassword">Address</label>'+
+'<input type="text" id="userPassword" name="address"></div><div class="half-width" id="one-more-width-change"><label for="userPassword">Email</label><input type="email" id="userPassword" name="email" required></div><div class="half-width"  id="width-change"><label for="userPasswordRepeat">Password</label><input type="password" id="userPasswordRepeat" name="password"></div> <div class="half-width" id="width-change"><label >Phone Number</label><input type="int" id="userPasswordRepeat" name="pno"></div></fieldset><fieldset><legend>I agree to all terms and conditions</legend><div class=half-width><ul class="cd-payment-gateways"><li><input type="checkbox" name="agree" id="paypal" value="yes" required><label for="paypal" style="font-size: 15px;">I agree</label></li></ul> <!-- .cd-payment-gateways --></div><div style="padding-top:3.5em;"><input type="submit" value="Get started"></div></fieldset></form><a href="#0" class="cd-close"></a>';
+		}
+		else{
+			document.getElementById("side-content").innerHTML='<div style="padding-left:28%;padding-top:30%;"><label style="font-size:15px;">Visit the page for all the contact information</label><a href="/contact" style="font-size:20px;">Click Here</a></div><a href="#0" class="cd-close"></a>';
+		}
+	}
+</script>
+<script>
+		<%-status%>
+</script>
+</body>
+</html>
+<style>
+	     @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+    font-size: 62.5%;
+    font-size: 10px;
+}
+
+/*-- Inspiration taken from abdo steif -->
+/* --> https://codepen.io/abdosteif/pen/bRoyMb?editors=1100*/
+
+/* Navbar section */
+
+.nav {
+    width: 100%;
+    height: 65px;
+    position: fixed;
+    line-height: 65px;
+    text-align: center;
+}
+
+.nav div.logo {
+    float: left;
+    width: auto;
+    height: auto;
+    padding-left: 3rem;
+}
+
+.nav div.logo a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 2.5rem;
+}
+
+.nav div.logo a:hover {
+    color: #00E676;
+}
+
+.nav div.main_list {
+    height: 65px;
+    float: right;
+}
+
+.nav div.main_list ul {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav div.main_list ul li {
+    width: auto;
+    height: 65px;
+    padding: 0;
+    padding-right: 3rem;
+}
+
+.nav div.main_list ul li a {
+    text-decoration: none;
+    color: #fff;
+    line-height: 65px;
+    font-size: 2.4rem;
+}
+
+.nav div.main_list ul li a:hover {
+    color: #00E676;
+}
+
+
+/* Home section */
+
+.home {
+    width: 100%;
+    height: 100vh;
+    background-image: url(https://wallpaperaccess.com/full/2468381.jpg);
+    background-position: center top;
+	background-size:cover;
+}
+
+.navTrigger {
+    display: none;
+}
+
+.nav {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+
+/* Media qurey section */
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .navTrigger {
+        display: block;
+    }
+    .nav div.logo {
+        margin-left: 15px;
+    }
+    .nav div.main_list {
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+    }
+    .nav div.show_list {
+        height: auto;
+        display: none;
+    }
+    .nav div.main_list ul {
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: #111;
+        /*same background color of navbar*/
+        background-position: center top;
+    }
+    .nav div.main_list ul li {
+        width: 100%;
+        text-align: right;
+    }
+    .nav div.main_list ul li a {
+        text-align: center;
+        width: 100%;
+        font-size: 3rem;
+        padding: 20px;
+    }
+    .nav div.media_button {
+        display: block;
+    }
+}
+
+
+/* Animation */
+/* Inspiration taken from Dicson https://codemyui.com/simple-hamburger-menu-x-mark-animation/ */
+
+.navTrigger {
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    margin: auto;
+    position: absolute;
+    right: 30px;
+    top: 0;
+    bottom: 0;
+}
+
+.navTrigger i {
+    background-color: #fff;
+    border-radius: 2px;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+}
+
+.navTrigger i:nth-child(1) {
+    -webkit-animation: outT 0.8s backwards;
+    animation: outT 0.8s backwards;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+.navTrigger i:nth-child(2) {
+    margin: 5px 0;
+    -webkit-animation: outM 0.8s backwards;
+    animation: outM 0.8s backwards;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+.navTrigger i:nth-child(3) {
+    -webkit-animation: outBtm 0.8s backwards;
+    animation: outBtm 0.8s backwards;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+.navTrigger.active i:nth-child(1) {
+    -webkit-animation: inT 0.8s forwards;
+    animation: inT 0.8s forwards;
+}
+
+.navTrigger.active i:nth-child(2) {
+    -webkit-animation: inM 0.8s forwards;
+    animation: inM 0.8s forwards;
+}
+
+.navTrigger.active i:nth-child(3) {
+    -webkit-animation: inBtm 0.8s forwards;
+    animation: inBtm 0.8s forwards;
+}
+
+@-webkit-keyframes inM {
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+    }
+}
+
+@keyframes inM {
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@-webkit-keyframes outM {
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+    }
+}
+
+@keyframes outM {
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@-webkit-keyframes inT {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@keyframes inT {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes outT {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@keyframes outT {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes inBtm {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@keyframes inBtm {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@-webkit-keyframes outBtm {
+    0% {
+        -webkit-transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        -webkit-transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+@keyframes outBtm {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-9px) rotate(135deg);
+    }
+}
+
+.affix {
+    padding: 0;
+    background-color: #111;
+}
+
+
+
+
+
+
+.myH2 {
+	text-align:center;
+	font-size: 4rem;
+}
+.myP {
+	text-align: justify;
+	padding-left:15%;
+	padding-right:15%;
+	font-size: 20px;
+}
+@media all and (max-width:700px){
+	.myP {
+		padding:2%;
+	}
+}
+</style>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>User Chat</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+    <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="/adminview.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+    <style>
+        <head><style>#customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 150%;
+        }
+
+        #customers td,
+        #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        #message-container {
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        #message-container div {
+            background-color: #CCC;
+            padding: 5px;
+        }
+
+        #message-container div:nth-child(2n) {
+            background-color: #FFF;
+        }
+
+        #send-container {
+            position: fixed;
+            padding-bottom: 30px;
+            bottom: 0;
+            background-color: white;
+            max-width: 1200px;
+            width: 80%;
+            display: flex;
+        }
+
+        #message-input {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3 class="gf">USER VIEW</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li class="active">
+                    <a href="/order" aria-expanded="false" id="active" class="gf">Book Package</a>
+                </li>
+                <li>
+                    <a href="/orderdetails" aria-expanded="false" class="gf">Order Status</a>
+                </li>
+                <!--Chat feature-->
+                <li>
+                    <a href="/userchat" aria-expanded="false" class="gf">Chat</a>
+                </li>
+                  <li>
+                    <a href="/statsuser" aria-expanded="false" class="gf">Statistics</a>
+                </li>
+                <li>
+                    <a href="/login" aria-expanded="false" class="gf">Logout</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Page Content  -->
+
+        <div class="container">
+            <div id="message-container"></div>
+            <form id="send-container">
+                <select id="userType">
+                    <option value="driver">Driver</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <input type="text" id="message-input">
+                <button type="submit" id="send-button">Send</button>
+            </form>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect("https://754314edd6eb4649969ee44a9597f279.vfs.cloud9.us-east-1.amazonaws.com/",
+            { secure: true, reconnection: true, rejectUnauthorized: false });
+        const messageContainer = document.getElementById('message-container')
+        const messageForm = document.getElementById('send-container')
+        const messageInput = document.getElementById('message-input')
+        const selectedInput = document.getElementById('userType')
+        let selectedType = "driver";
+
+        const name = prompt('What is your name?')
+        appendMessage('You joined')
+        socket.emit('new-user', name)
+
+        socket.on('chat-message', data => {
+            console.log(data.selectedType);
+            if (data.selectedType === "user") {
+              appendMessage(`${data.name}: ${data.message}`)   
+            }
+        })
+
+        socket.on('user-connected', name => {
+            appendMessage(`${name} connected`)
+        })
+
+        socket.on('user-disconnected', name => {
+            appendMessage(`${name} disconnected`)
+        })
+        
+        selectedInput.addEventListener('change', e => {
+            selectedType = selectedInput.value;
+        })
+
+        messageForm.addEventListener('submit', e => {
+            e.preventDefault()
+            const message = messageInput.value
+            appendMessage(`You: ${message}`)
+            socket.emit('send-chat-message', {selectedType, message})
+            messageInput.value = ''
+        })
+
+        function appendMessage(message) {
+            // write to DB
+            const messageElement = document.createElement('div')
+            messageElement.innerText = message
+            messageContainer.append(messageElement)
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+        //jQuery time
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var left, opacity, scale; //fieldset properties which we will animate
+        var animating; //flag to prevent quick multi-click glitches
+
+        function go_next(obj) {
+
+            if (animating) return false;
+            animating = true;
+
+            current_fs = $(obj).parent();
+            next_fs = $(obj).parent().next();
+
+            //activate next step on progressbar using the index of next_fs
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now, mx) {
+                    //as the opacity of current_fs reduces to 0 - stored in "now"
+                    //1. scale current_fs down to 80%
+                    scale = 1 - (1 - now) * 0.2;
+                    //2. bring next_fs from the right(50%)
+                    left = (now * 50) + "%";
+                    //3. increase opacity of next_fs to 1 as it moves in
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'transform': 'scale(' + scale + ')',
+                        'position': 'absolute'
+                    });
+                    next_fs.css({ 'left': left, 'opacity': opacity });
+                },
+                duration: 800,
+                complete: function () {
+                    current_fs.hide();
+                    animating = false;
+                },
+                //this comes from the custom easing plugin
+                easing: 'easeInOutBack'
+            });
+        }
+
+        function go_prev(obj) {
+            if (animating) return false;
+            animating = true;
+
+            current_fs = $(obj).parent();
+            previous_fs = $(obj).parent().prev();
+
+            //de-activate current step on progressbar
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now, mx) {
+                    //as the opacity of current_fs reduces to 0 - stored in "now"
+                    //1. scale previous_fs from 80% to 100%
+                    scale = 0.8 + (1 - now) * 0.2;
+                    //2. take current_fs to the right(50%) - from 0%
+                    left = ((1 - now) * 50) + "%";
+                    //3. increase opacity of previous_fs to 1 as it moves in
+                    opacity = 1 - now;
+                    current_fs.css({ 'left': left });
+                    previous_fs.css({ 'transform': 'scale(' + scale + ')', 'opacity': opacity });
+                },
+                duration: 800,
+                complete: function () {
+                    current_fs.hide();
+                    animating = false;
+                },
+                //this comes from the custom easing plugin
+                easing: 'easeInOutBack'
+            });
+        }
+    </script>
+
+    <script>
+        sessionStorage.setItem('token', "Hi");
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+h1{
+	margin-top: 10px;
+	color: black;
+	text-align: center;
+	height: 110px;
+	text-shadow: 4px 4px gray;
+	font-size: 55px;
+}
+
+
+#f{
+	position: absolute;
+	margin-left: 850px;
+}
+#d{
+	position: absolute;
+	margin-left: 65px;
+}
+#l{
+	position: absolute;
+	margin-right:600px; 
+	margin-left: 60px;
+	margin-top: 68px;
+	color: #2C2B2F;
+
+}
+
+#image{
+	width: 20px;
+	height: 20px;
+	
+}
+h5{
+	color: #337ab7;
+	/*text-shadow: 2px 2px #4860A2 ;*/
+
+}
+
+body{
+	
+color: black;
+background-image: url(https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-010-winter-neva.png);
+
+/*background-image: url(https://images.vexels.com/media/users/3/71157/raw/d19999bf77e12d88fb687ba98cb47fcb-orange-sunset-on-city-road-background.jpg);*/
+background-repeat: no-repeat;
+background-size: cover;
+
+}
+
+.form-text{
+
+	color: black;
+}
+.navbar {
+	background-color: gray;
+
+}
+checkbox:hover{
+	border: 2px solid black;
+}
+/*a{*/
+/*	color: black;*/
+/*	font-size: 8;*/
+/*}*/
+
+ a{
+            color: black;
+            font-size: 1.1em !important;
+             margin: 0 3px;
+        }
+
+/*nav ul{*/
+/*  list-style: none;*/
+/*  margin: 0 2px;*/
+/*  padding: 0;*/
+/*  display: flex;*/
+/*  justify-content: space-around;*/
+/*}*/
+input{
+	background-color: transparent;
+	border: 2px solid black;
+	border-radius: 0.4rem;
+	box-shadow: 1.75px 1.75px gray;
+
+}
+textarea{
+	background-color: transparent;
+	border: 2px solid black;
+	border-radius: 0.4rem;
+		box-shadow: 2.5px 2.5px gray;
+}
+select{
+	background-color: transparent;
+    border: 2px solid black;
+    	border-radius: 0.4rem;
+    		box-shadow: 2.5px 2.5px gray;
+}
+
+h2{
+	text-shadow: 2.5px 2.5px gray;
+}
+.btn {
+	box-shadow: 3px 3px #4860A2   ;
+}
+.btn:hover{ 
+	border:3px solid blue;
+}
+select:hover {
+    border: 3.5px solid #4860A2;
+    
+}
+
+textarea:hover {
+    border: 3.5px solid #4860A2;
+    
+}
+
+input:hover {
+    border: 3.5px solid #4860A2;
+    
+}
+/*.cb{*/
+/*	color: blue;*/
+/*}*/
